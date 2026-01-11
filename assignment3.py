@@ -3,11 +3,9 @@ import subprocess
 import pandas as pd
 from pydriller import Repository
 
-REPO_PATH = "."   # your local git repo path
+REPO_PATH = "."   # local git repo path
 
-# -------------------------------
 # PART 1: output_1.txt
-# -------------------------------
 
 def generate_output_1():
     commits = list(Repository(REPO_PATH).traverse_commits())
@@ -28,22 +26,20 @@ def generate_output_1():
             for line in result.stdout.strip().split("\n"):
                 if not line:
                     continue
-                status, path = line.split("\t", 1)
+                status, path = line.split("\t", 1) # Process each line of git diff output
 
                 if status == "A":
                     added.append(path)
                 elif status == "D":
                     deleted.append(path)
                 elif status == "M":
-                    modified.append(path)
+                    modified.append(path) # Check file status
 
             f.write(f"Commit ID: {curr_commit} Added files: {added}\n")
             f.write(f"Commit ID: {curr_commit} Deleted files: {deleted}\n")
             f.write(f"Commit ID: {curr_commit} Modified files: {modified}\n\n")
 
-# -------------------------------
 # PART 2: output_2.csv
-# -------------------------------
 
 def generate_output_2():
     data = []
@@ -88,19 +84,15 @@ def generate_output_2():
         "Commit Count",
         "Code Churn",
         "Contributors"
-    ])
+    ]) # Create a DataFrame and write it to output_2.csv
 
     df.to_csv("output_2.csv", index=False)
 
-# -------------------------------
 # MAIN
-# -------------------------------
 
 if __name__ == "__main__":
-    print("Generating output_1.txt...")
+    print("Generating output_1.txt")
     generate_output_1()
 
-    print("Generating output_2.csv...")
-    generate_output_2()
-
-    print("✅ All outputs generated successfully!")
+    print("Generating output_2.csv")
+    generate_output_2() # The 2 files are created

@@ -1,4 +1,0 @@
-How to run:
-1. Open terminal inside your git repository
-2. Run the program using "python3 assignment3.py" in my case
-3. 
